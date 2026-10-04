@@ -78,8 +78,10 @@
     oklch(0.985 0.011 84) 62%
   );
   --gradient-ember: linear-gradient(135deg, var(--ember), oklch(0.66 0.14 55));
-  --shadow-soft: 0 2px 8px -4px oklch(0.3 0.05 45 / 0.12), 0 18px 40px -22px oklch(0.3 0.05 45 / 0.28);
-  --shadow-lift: 0 8px 20px -8px oklch(0.3 0.05 45 / 0.18), 0 40px 70px -30px oklch(0.3 0.05 45 / 0.34);
+  --shadow-soft:
+    0 2px 8px -4px oklch(0.3 0.05 45 / 0.12), 0 18px 40px -22px oklch(0.3 0.05 45 / 0.28);
+  --shadow-lift:
+    0 8px 20px -8px oklch(0.3 0.05 45 / 0.18), 0 40px 70px -30px oklch(0.3 0.05 45 / 0.34);
 }
 
 @layer base {

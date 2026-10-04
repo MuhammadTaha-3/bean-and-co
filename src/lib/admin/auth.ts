@@ -1,5 +1,7 @@
 // Frontend-only admin gate (Phase 1). Phase 2: replace with a real session from the backend.
-export const ADMIN_EMAIL = (process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? "admin@beanandco.pk").toLowerCase();
+export const ADMIN_EMAIL = (
+  process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? "admin@beanandco.pk"
+).toLowerCase();
 const KEY = "bc2_admin_session";
 
 export function adminLogin(email: string): boolean {

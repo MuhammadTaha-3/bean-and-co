@@ -1,13 +1,7 @@
 // Single data-access layer. Everything is async on purpose: when the backend
 // lands, each function body becomes a fetch() call and nothing else changes.
 import { icedDrinks, products as seedProducts } from "@/lib/coffee-data";
-import type {
-  Customer,
-  Order,
-  OrderStatus,
-  Product,
-  StoreSettings,
-} from "./types";
+import type { Customer, Order, OrderStatus, Product, StoreSettings } from "./types";
 
 const KEYS = {
   products: "bc2_products",
@@ -119,16 +113,12 @@ function seedOrders(all: Product[]): Order[] {
       pick("tiramisu", 1),
     ]),
     make(2, 3, "Preparing", "Bilal Ahmed", "bilal@example.com", [pick("house-beans", 1)]),
-    make(3, 6, "Shipped", "Hira Nadeem", "hira@example.com", [
-      pick("iced-caramel-macchiato", 3),
-    ]),
+    make(3, 6, "Shipped", "Hira Nadeem", "hira@example.com", [pick("iced-caramel-macchiato", 3)]),
     make(4, 11, "Delivered", "Usman Tariq", "usman@example.com", [
       pick("double-espresso", 2),
       pick("coffee-mocha", 1),
     ]),
-    make(5, 18, "Delivered", "Ayesha Siddiqui", "ayesha@example.com", [
-      pick("black-iced", 2),
-    ]),
+    make(5, 18, "Delivered", "Ayesha Siddiqui", "ayesha@example.com", [pick("black-iced", 2)]),
   ];
 }
 
@@ -254,7 +244,10 @@ export async function renameCategory(from: string, to: string): Promise<void> {
 
 export async function deleteCategory(name: string): Promise<void> {
   ensureSeeded();
-  write(KEYS.categories, read<string[]>(KEYS.categories, []).filter((c) => c !== name));
+  write(
+    KEYS.categories,
+    read<string[]>(KEYS.categories, []).filter((c) => c !== name),
+  );
   await delay();
 }
 
@@ -276,9 +269,9 @@ const normalize = (o: Order): Order => ({
 export async function listOrders(): Promise<Order[]> {
   ensureSeeded();
   await delay();
-  return read<Order[]>(KEYS.orders, []).map(normalize).sort((a, b) =>
-    b.createdAt.localeCompare(a.createdAt),
-  );
+  return read<Order[]>(KEYS.orders, [])
+    .map(normalize)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export async function getOrder(id: string): Promise<Order | null> {
@@ -338,7 +331,11 @@ export async function updateOrderStatus(id: string, status: OrderStatus): Promis
   const idx = all.findIndex((o) => o.id === id);
   const cur = all[idx];
   if (cur && cur.status !== status) {
-    all[idx] = { ...cur, status, history: [...(cur.history ?? []), { status, at: new Date().toISOString() }] };
+    all[idx] = {
+      ...cur,
+      status,
+      history: [...(cur.history ?? []), { status, at: new Date().toISOString() }],
+    };
     write(KEYS.orders, all);
     // cancelling puts the stock back
     if (status === "Cancelled") {

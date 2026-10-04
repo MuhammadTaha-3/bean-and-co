@@ -39,15 +39,30 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           {nav.map(({ href, label, icon: Icon }) => {
             const active = href === "/admin" ? path === href : path.startsWith(href);
             return (
-              <Link key={href} href={href} className={`flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-sm ${active ? "bg-cream/15 font-semibold" : "text-cream/75 hover:bg-cream/10"}`}>
+              <Link
+                key={href}
+                href={href}
+                className={`flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-sm ${active ? "bg-cream/15 font-semibold" : "text-cream/75 hover:bg-cream/10"}`}
+              >
                 <Icon className="size-4" /> {label}
               </Link>
             );
           })}
         </nav>
         <div className="hidden px-3 pt-6 md:block">
-          <Link href="/" className="block rounded-xl px-3 py-2 text-sm text-cream/75 hover:bg-cream/10">View storefront</Link>
-          <button onClick={() => { adminLogout(); router.replace("/admin/login"); }} className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-cream/75 hover:bg-cream/10">
+          <Link
+            href="/"
+            className="block rounded-xl px-3 py-2 text-sm text-cream/75 hover:bg-cream/10"
+          >
+            View storefront
+          </Link>
+          <button
+            onClick={() => {
+              adminLogout();
+              router.replace("/admin/login");
+            }}
+            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-cream/75 hover:bg-cream/10"
+          >
             <LogOut className="size-4" /> Log out
           </button>
         </div>
